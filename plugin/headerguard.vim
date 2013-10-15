@@ -31,7 +31,8 @@ function! s:HeaderguardName()
    let guard = expand('%:p')
    if stridx(guard,"src") > 0
        let guard = strpart(guard, strridx(guard,"src")+4, strlen(guard))
-       return toupper(expand('guard:gs/[^0-9a-zA-Z_]/_/g'))
+       let guard = toupper(substitute(guard, '[^0-9a-zA-Z_]', '_', 'g'))
+       return guard
     else
         return toupper(expand('%:t:gs/[^0-9a-zA-Z_]/_/g'))
 endfunction
@@ -97,9 +98,9 @@ function! g:HeaderguardAdd()
 
     else
         " No header guard found.
-        call append(0, [ s:Func('Line1')(), s:Func('Line2')(), "" ])
+        call append(5, [ s:Func('Line1')(), s:Func('Line2')(), "" ])
         call append(line("$"), ["", s:Func('Line3')()])
-        call cursor(1, 1)
+        call cursor(8, 1)
     endif
 endfunction
 command! -bar HeaderguardAdd call g:HeaderguardAdd()
