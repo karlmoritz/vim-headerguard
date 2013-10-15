@@ -27,7 +27,13 @@ function! s:Func(funcSuffix)
 endfunction
 
 function! s:HeaderguardName()
-    return toupper(expand('%:t:gs/[^0-9a-zA-Z_]/_/g'))
+    " If file is in a subdirectory of "src", use the absolute path from there
+   let guard = expand('%:p')
+   if stridx(guard,"src") > 0
+       let guard = strpart(guard, strridx(guard,"src")+4, strlen(guard))
+       return toupper(expand('guard:gs/[^0-9a-zA-Z_]/_/g'))
+    else
+        return toupper(expand('%:t:gs/[^0-9a-zA-Z_]/_/g'))
 endfunction
 
 function! s:HeaderguardLine1()
