@@ -46,7 +46,7 @@ function! s:HeaderguardLine2()
 endfunction
 
 function! s:HeaderguardLine3()
-    return "#endif /* " . s:Func('Name')() . " */"
+    return "#endif  // " . s:Func('Name')()
 endfunction
 
 function! g:HeaderguardAdd()
